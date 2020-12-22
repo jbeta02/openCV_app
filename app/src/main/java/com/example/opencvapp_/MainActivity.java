@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
         layout = (ConstraintLayout) findViewById(R.id.layout);
         imageDisplay = (ImageView) findViewById(R.id.imageDisplay);
 
+        Log.i("init debug", Boolean.toString(OpenCVLoader.initDebug()));
+
+
     }
 
     public void displayImage(View view){
         imageDisplay.setImageResource(R.drawable.ic_launcher_background);
-//        double[] Dmatrix = mat.get(1,1);
-//        String matrix = Double.toString(Dmatrix[0]);
-//        Log.i("openCVTest", matrix);
+
     }
 }
