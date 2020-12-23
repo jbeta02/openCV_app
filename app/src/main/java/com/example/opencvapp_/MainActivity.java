@@ -12,6 +12,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -22,6 +23,8 @@ import org.opencv.android.JavaCameraView;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +32,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements CvCameraViewListener2 {
     public static final String TAG = "MainAct_openCv";
 
-    ConstraintLayout layout;
+    private RingDetector ringDetector;
+
+    private ConstraintLayout layout;
+    private TextView textView;
 
     private CameraBridgeViewBase mOpenCvCameraView;
 
@@ -58,11 +64,16 @@ public class MainActivity extends AppCompatActivity implements CvCameraViewListe
 
         layout = (ConstraintLayout) findViewById(R.id.layout);
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.cameraViewId);
+        textView = (TextView) findViewById(R.id.lowerHueView);
 
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
         mOpenCvCameraView.setCameraPermissionGranted();
+
+        ringDetector = new RingDetector();
+
+        textView.setText(Double.toString(ringDetector.getLowerHue()));
     }
 
     @Override
@@ -92,16 +103,34 @@ public class MainActivity extends AppCompatActivity implements CvCameraViewListe
 
     @Override
     public void onCameraViewStarted(int width, int height) {
+        // init mats
     }
 
     @Override
     public void onCameraViewStopped() {
+        // release mats
     }
 
     @Override
     public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
+        // do work here
+
+        Mat img = inputFrame.rgba();
+
         Log.i(TAG, "onCameraFrame");
-        return inputFrame.rgba();
+
+        ringDetector.processImg(img);
+
+        return img;
     }
 
+    public void increaseHue(View view) {
+        ringDetector.increaseHue();
+        textView.setText(Double.toString(ringDetector.getLowerHue()));
+    }
+
+    public void decreaseHue(View view) {
+        ringDetector.decreaseHue();
+        textView.setText(Double.toString(ringDetector.getLowerHue()));
+    }
 }
