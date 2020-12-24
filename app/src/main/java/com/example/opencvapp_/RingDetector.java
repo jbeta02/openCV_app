@@ -1,5 +1,8 @@
 package com.example.opencvapp_;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -21,6 +24,9 @@ public class RingDetector {
     private double upperValue = 255;
 
     private ArrayList<Rect> rects = new ArrayList<>(2);
+
+    private int ringCount;
+    private int height = 0;
 
 
     public RingDetector(){
@@ -66,15 +72,15 @@ public class RingDetector {
         }
 
         // look for biggest contour area
-        double largest = 0;
         Rect largestRect = new Rect();
         for (Rect rect: rects){
-            if (rect.height > largest){
-                largest = rect.height;
+            if (rect.height > height){
+                height = rect.height;
                 largestRect = rect;
             }
         }
         Imgproc.rectangle(rawImg, largestRect, new Scalar(255, 0, 0));
+        Log.i("imgProc", Integer.toString(height));
 
 
         // diff between 1, 4, and 0 rings
@@ -84,6 +90,10 @@ public class RingDetector {
          */
 
         return rawImg;
+    }
+
+    public int getHeight(){
+        return height;
     }
 
 }
