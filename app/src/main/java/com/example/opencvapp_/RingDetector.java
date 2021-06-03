@@ -47,7 +47,7 @@ public class RingDetector {
         return upperValue;
     }
 
-    public Mat processImg(Mat rawImg){
+    public void processImg(Mat rawImg){
         Mat modifiedImg = new Mat();
 
         Scalar lowerBound = new Scalar(this.lowerBound, 25, this.lowerValue);
@@ -80,7 +80,7 @@ public class RingDetector {
             }
         }
         Imgproc.rectangle(rawImg, largestRect, new Scalar(255, 0, 0));
-        Log.i("imgProc", Integer.toString(height));
+        Log.i("imgProc: height", Integer.toString(height));
 
 
         // diff between 1, 4, and 0 rings
@@ -88,8 +88,6 @@ public class RingDetector {
         /*TODO: look at how the images are taken from the robot
             then use them to deferentiate between 1, 4, and 0
          */
-
-        return rawImg;
     }
 
     public int getHeight(){

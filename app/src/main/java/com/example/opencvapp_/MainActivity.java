@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity implements CvCameraViewListe
     @Override
     public void onPause() {
         super.onPause();
-        if (mOpenCvCameraView != null)
+        if (mOpenCvCameraView != null){
             mOpenCvCameraView.disableView();
+            mOpenCvCameraView.setVisibility(SurfaceView.INVISIBLE);
+        }
     }
 
     @Override
@@ -97,8 +99,10 @@ public class MainActivity extends AppCompatActivity implements CvCameraViewListe
 
     public void onDestroy() {
         super.onDestroy();
-        if (mOpenCvCameraView != null)
+        if (mOpenCvCameraView != null){
             mOpenCvCameraView.disableView();
+            mOpenCvCameraView.setVisibility(SurfaceView.INVISIBLE);
+        }
     }
 
     @Override
