@@ -1,4 +1,4 @@
-# openCV_app
+# OpenCv App
 App to quickly test HSV values for object detection using OpenCV.
 
 
