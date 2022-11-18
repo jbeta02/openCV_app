@@ -2,7 +2,7 @@
 App to quickly test HSV values for object detection using OpenCV.
 
 
-Used for to develop ACME's computer vision software during Ultimate Goal season.
+Used for to develop ACME's computer vision software during Ultimate Goal (2020-2021) season.
 
 ### Example of app UI and usage to test HSV values for orange ring detection:
 
